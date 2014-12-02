@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configures the Camel Context-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+  <!-- here is a sample which processes the input files
+         (leaving them in place - see the 'noop' flag)
+         then performs content based routing on the message using XPath --><camelContext xmlns="http://camel.apache.org/schema/spring">
+    <route autoStartup="true" shutdownRunningTask="CompleteCurrentTaskOnly">
+        <from uri="file:input/?noop=true"/>
+        <unmarshal>
+            <csv skipFirstLine="true"/>
+        </unmarshal>
+        <to uri="sql:insert into csv (value1, value2, value3, value4) Values (#, #, #, #)?batch=true"/>
+        <log message="CSV values ${body}" loggingLevel="WARN"/>
+        <onCompletion useOriginalMessage="false">
+            <stop/>
+        </onCompletion>
+    </route>
+</camelContext>
+
+
+<bean id="sql" class="org.apache.camel.component.sql.SqlComponent">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver" />
+        <property name="url" value="jdbc:hsqldb:hsql://localhost" />
+        <property name="username" value="sa" />
+        <property name="password" value="" />
+      </bean>
+    
+
+</beans>
