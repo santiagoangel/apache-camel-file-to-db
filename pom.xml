@@ -4,13 +4,13 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
-	<artifactId>camel-spring</artifactId>
+	<groupId>com.github.santiagoangel</groupId>
+	<artifactId>apache-camel-file-to-db</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.0-SNAPSHOT</version>
 
-	<name>A Camel Spring Route</name>
-	<url>http://www.myorganization.org</url>
+	<name>Apache Camel file to Database example</name>
+	<url>https://github.com/santiagoangel/apache-camel-file-to-db/</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -61,12 +61,6 @@
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.182</version>
 		</dependency>
 
 		<dependency>
